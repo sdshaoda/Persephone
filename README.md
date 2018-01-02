@@ -1,6 +1,6 @@
-# hades
+# Persephone
 
-Hades' frond end uses Vue
+A frond end Project uses Vue
 
 ## Build Setup
 
