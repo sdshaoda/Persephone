@@ -1,6 +1,8 @@
 # Persephone
 
-A frond end Project uses Vue
+## Introduce
+
+A financial APP front-end uses Vue
 
 ## Build Setup
 

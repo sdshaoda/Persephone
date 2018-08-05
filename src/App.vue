@@ -1,22 +1,22 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
+    <p-footer></p-footer>
   </div>
 </template>
 
 <script>
+import PFooter from 'components/p-footer/p-footer'
+
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+    PFooter
+  }
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style scope>
 </style>
