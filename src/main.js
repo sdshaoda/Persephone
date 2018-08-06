@@ -4,6 +4,7 @@ import App from './App'
 import router from './router'
 
 import 'mint-ui/lib/style.css'
+import 'common/css/index.scss'
 
 Vue.use(Mint)
 
