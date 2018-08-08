@@ -39,3 +39,13 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+/* add */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: tahoma, "microsoft yahei";
+}
