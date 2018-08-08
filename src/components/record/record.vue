@@ -36,9 +36,24 @@
         </mt-swipe-item>
       </mt-swipe>
     </div>
-    <div class="record">
 
+    <div class="record">
+      <mt-cell-swipe v-for="n in 100" :key="n" title="早午晚餐" value="带 icon" label="2018-8-9 00:42:05" :right="[
+        {
+          content: '编辑',
+          style: {background: '#d3d3d3', color: '#fff'},
+          handler: ()=>{}
+        },
+        {
+        content: '删除',
+        style: { background: 'red', color: '#fff' },
+        handler: () => this.$messagebox('删除')
+        }
+      ]">
+        招商银行信用卡
+      </mt-cell-swipe>
     </div>
+
     <div class="add-one-wrapper">
       <mt-button class="add-one" type="primary" @click.native="addOne">记一笔</mt-button>
     </div>
@@ -94,10 +109,12 @@ export default {
 }
 .add-one-wrapper {
   width: 100%;
-  position: absolute;
-  bottom: 60px;
+  padding-bottom: 10px;
+  position: fixed;
+  bottom: 50px;
   display: flex;
   justify-content: space-around;
+  background: #fff;
   .add-one {
     width: 90%;
   }

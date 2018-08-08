@@ -37,6 +37,7 @@ export default {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  background: #fff;
   div {
     display: flex;
     flex-direction: column;
