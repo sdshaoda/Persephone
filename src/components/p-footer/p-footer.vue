@@ -1,12 +1,12 @@
 <template>
   <div class="p-footer">
-    <router-link tag="div" to="/record">
-      <i class="p-icon i-record"></i>
-      <span class="link">流水</span>
-    </router-link>
     <router-link tag="div" to="/asset">
       <i class="p-icon i-wallet"></i>
       <span class="link">资产</span>
+    </router-link>
+    <router-link tag="div" to="/record">
+      <i class="p-icon i-record"></i>
+      <span class="link">流水</span>
     </router-link>
     <router-link tag="div" to="/analyse">
       <i class="p-icon i-analyse"></i>
