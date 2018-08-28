@@ -56,7 +56,9 @@
     </div>
 
     <div class="add-one-wrapper">
-      <mt-button class="add-one" type="primary" @click.native="addOne">记一笔</mt-button>
+      <mt-button class="add-one" type="primary" @click.native="addOne">
+        <i class="p-icon i-add-record"></i>记一笔
+      </mt-button>
     </div>
   </div>
 </template>

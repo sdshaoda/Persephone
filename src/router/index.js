@@ -12,7 +12,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/record'
+      redirect: '/asset'
     },
     {
       path: '/asset',
