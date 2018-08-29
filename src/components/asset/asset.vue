@@ -39,7 +39,8 @@
     </div>
 
     <div class="asset-overview">
-
+      <div class="title">资产账户</div>
+      <cell-swipe left-main="早午晚餐" left-sub="2018-8-30 00:06:49" right-main="12.00" right-sub="招商银行信用卡"></cell-swipe>
     </div>
 
     <div class="record">
@@ -73,6 +74,8 @@
 </template>
 
 <script>
+import CellSwipe from 'base/cell-swipe/cell-swipe'
+
 export default {
   data() {
     return {}
@@ -84,6 +87,9 @@ export default {
     addAsset() {
       console.log('add asset')
     }
+  },
+  components: {
+    CellSwipe
   }
 }
 </script>
@@ -124,6 +130,15 @@ export default {
     }
   }
 }
+
+.asset-overview {
+  margin: 30px 0;
+  .title {
+    padding-left: 1em;
+    line-height: 30px;
+  }
+}
+
 .add-wrapper {
   width: calc(100% - 20px);
   margin: 10px;

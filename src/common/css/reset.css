@@ -47,7 +47,7 @@ table {
 }
 
 body {
-  font-family: tahoma, "microsoft yahei";
+  font-family: 'PingFang SC', 'STHeitiSC-Light', 'Helvetica-Light', arial, sans-serif, 'Droid Sans Fallback'
 }
 
 button:focus {
