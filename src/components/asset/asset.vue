@@ -38,6 +38,10 @@
       </mt-swipe>
     </div>
 
+    <div class="asset-overview">
+
+    </div>
+
     <div class="record">
       <mt-cell-swipe v-for="n in 100" :key="n" title="早午晚餐" value="带 icon" label="2018-8-9 00:42:05" :right="[
         {
@@ -55,10 +59,15 @@
       </mt-cell-swipe>
     </div>
 
-    <div class="add-one-wrapper">
-      <mt-button class="add-one" type="primary" @click.native="addOne">
+    <div class="add-wrapper">
+      <!-- <mt-button class="add-record" type="primary" @click.native="addOne"> -->
+      <button class="add-record" @click.stop.prevent="addRecord">
         <i class="p-icon i-add-record"></i>记一笔
-      </mt-button>
+      </button>
+      |
+      <button class="add-asset" @click.stop.prevent="addAsset">添加资产</button>
+      <!-- <mt-button class="add-asset" type="primary">添加资产</mt-button> -->
+      <!-- </mt-button> -->
     </div>
   </div>
 </template>
@@ -69,14 +78,19 @@ export default {
     return {}
   },
   methods: {
-    addOne() {
-      console.log('add one')
+    addRecord() {
+      console.log('add record')
+    },
+    addAsset() {
+      console.log('add asset')
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+@import "common/css/variable.scss";
+
 .overview {
   width: 100%;
   height: 200px;
@@ -110,16 +124,36 @@ export default {
     }
   }
 }
-.add-one-wrapper {
-  width: 100%;
-  padding-bottom: 10px;
+.add-wrapper {
+  width: calc(100% - 20px);
+  margin: 10px;
   position: fixed;
   bottom: 50px;
   display: flex;
   justify-content: space-around;
-  background: #fff;
-  .add-one {
-    width: 90%;
+  background: $color-red-6;
+  color: white;
+  border-radius: 3px;
+  line-height: 35px;
+  button {
+    border: none;
+    background: none;
+    color: white;
+    padding: 10px 0;
+  }
+  button:active {
+    background: $color-red-7;
+  }
+  .add-record {
+    width: 70%;
+    font-size: 16px;
+    i {
+      margin-right: 0.3em;
+    }
+  }
+  .add-asset {
+    width: 30%;
+    font-size: 14px;
   }
 }
 </style>

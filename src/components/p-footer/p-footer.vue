@@ -47,7 +47,7 @@ export default {
       font-size: 20px;
     }
     &.router-link-active {
-      color: $color-primary;
+      color: $color-red-6;
     }
     span {
       font-size: 14px;
