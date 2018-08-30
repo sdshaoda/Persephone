@@ -26,7 +26,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "common/css/variable.scss";
+@import 'common/css/variable.scss';
 
 .p-footer {
   width: 100%;
