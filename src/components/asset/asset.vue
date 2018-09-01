@@ -43,32 +43,19 @@
       <cell-swipe left-main="早午晚餐" left-sub="2018-8-30 00:06:49" right-main="12.00" right-sub="招商银行信用卡"></cell-swipe>
     </div>
 
-    <div class="record">
-      <mt-cell-swipe v-for="n in 100" :key="n" title="早午晚餐" value="带 icon" label="2018-8-9 00:42:05" :right="[
-        {
-          content: '编辑',
-          style: {background: '#d3d3d3', color: '#fff'},
-          handler: ()=>{}
-        },
-        {
-        content: '删除',
-        style: { background: 'red', color: '#fff' },
-        handler: () => this.$messagebox('删除')
-        }
-      ]">
-        招商银行信用卡
-      </mt-cell-swipe>
+    <div class="record-overview">
+      <div class="title">近3日新增账单
+        <span>0笔</span>
+      </div>
+      <cell-swipe left-main="早午晚餐" left-sub="2018-8-30 00:06:49" right-main="12.00" right-sub="招商银行信用卡"></cell-swipe>
     </div>
 
     <div class="add-wrapper">
-      <!-- <mt-button class="add-record" type="primary" @click.native="addOne"> -->
       <button class="add-record" @click.stop.prevent="addRecord">
         <i class="p-icon i-add-record"></i>记一笔
       </button>
       |
       <button class="add-asset" @click.stop.prevent="addAsset">添加资产</button>
-      <!-- <mt-button class="add-asset" type="primary">添加资产</mt-button> -->
-      <!-- </mt-button> -->
     </div>
   </div>
 </template>
@@ -131,11 +118,17 @@ export default {
   }
 }
 
-.asset-overview {
+.asset-overview,
+.record-overview {
   margin: 30px 0;
-  .title {
-    padding-left: 1em;
-    line-height: 30px;
+}
+
+.title {
+  padding-left: 1em;
+  line-height: 30px;
+  span {
+    color: $color-grey-7;
+    padding-left: 0.3em;
   }
 }
 

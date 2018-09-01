@@ -1,5 +1,5 @@
 <template>
-  <div class="cell-swipe" @touchstart.stop.prevent="touchstart" @touchmove.stop.prevent="touchmove" @touchend.stop.prevent="touchend">
+  <div class="cell-swipe" @touchstart.stop="touchstart" @touchmove.stop="touchmove" @touchend.stop="touchend">
     <div class="content" ref="content">
       <i class="icon p-icon i-me"></i>
       <div class="left">
@@ -40,25 +40,68 @@ export default {
     }
   },
   created() {
+    // 触摸相关信息
     this.touch = {}
+    // 定时器
+    this.timeOut = 0
   },
   methods: {
     touchstart(e) {
+      // 触摸标志
       this.touch.status = true
+
+      // 触摸开始点
       this.touch.startX = e.touches[0].pageX
+      // content 开始位置
       this.touch.initialX = this.$refs.content.getBoundingClientRect().x
     },
     touchmove(e) {
       if (!this.touch.status) {
         return
       }
-      // deltaX [-50, 0]
-      const deltaX = Math.min(Math.max(this.touch.initialX + e.touches[0].pageX - this.touch.startX, -50), 0)
-      this.$refs.content.style.transform = `translate3d(${deltaX}px, 0, 0)`
-      this.$refs.extend.style.transform = `translate3d(${50 + deltaX}px, 0, 0)`
+      // endX 供 touchend 使用
+      this.touch.endX = e.touches[0].pageX
+
+      // content 滑动区间 (-∞, 0]
+      const contentTranslateX = Math.min(this.touch.initialX + e.touches[0].pageX - this.touch.startX, 0)
+      // extend 滑动区间 [-50, 0]
+      const extendTranslateX = Math.min(Math.max(-50, this.touch.initialX + e.touches[0].pageX - this.touch.startX), 0)
+
+      this.$refs.content.style.transform = `translate3d(${contentTranslateX}px, 0, 0)`
+      this.$refs.extend.style.transform = `translate3d(${50 + extendTranslateX}px, 0, 0)`
     },
     touchend(e) {
       this.touch.status = false
+
+      this.$refs.content.style.transition = 'transform 0.5s'
+      this.$refs.extend.style.transition = 'transform 0.5s'
+
+      if (this.touch.endX - this.touch.startX < 0) {
+        // 左滑
+        if (this.touch.endX - this.touch.startX > -50 / 3) {
+          this.$refs.content.style.transform = `translate3d(0, 0, 0)`
+          this.$refs.extend.style.transform = `translate3d(50px, 0, 0)`
+        } else {
+          this.$refs.content.style.transform = 'translate3d(-50px, 0, 0)'
+          this.$refs.extend.style.transform = 'translate3d(0, 0, 0)'
+        }
+      }
+      if (this.touch.endX - this.touch.startX > 0) {
+        // 右滑
+        if (this.touch.endX - this.touch.startX < 50 / 3) {
+          this.$refs.content.style.transform = `translate3d(-50px, 0, 0)`
+          this.$refs.extend.style.transform = `translate3d(0, 0, 0)`
+        } else {
+          this.$refs.content.style.transform = `translate3d(0, 0, 0)`
+          this.$refs.extend.style.transform = `translate3d(50px, 0, 0)`
+        }
+      }
+
+      clearTimeout(this.timeOut)
+      this.timeOut = setTimeout(() => {
+        this.$refs.content.style.transition = ''
+        this.$refs.extend.style.transition = ''
+      }, 500)
     }
   }
 }
