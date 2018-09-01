@@ -1,5 +1,5 @@
 <template>
-  <div class="cell-swipe" @touchstart.stop="touchstart" @touchmove.stop="touchmove" @touchend.stop="touchend">
+  <div class="cell-swipe" @touchstart.stop.prevent="touchstart" @touchmove.stop.prevent="touchmove" @touchend.stop.prevent="touchend">
     <div class="content" ref="content">
       <i class="icon p-icon i-me"></i>
       <div class="left">
@@ -47,7 +47,9 @@ export default {
   },
   methods: {
     touchstart(e) {
-      // 触摸标志
+      // reset
+      this.touch = {}
+      // set status
       this.touch.status = true
 
       // 触摸开始点
@@ -73,12 +75,17 @@ export default {
     touchend(e) {
       this.touch.status = false
 
+      const deltaX = this.touch.endX - this.touch.startX
+      if (isNaN(deltaX) || deltaX === 0) {
+        return
+      }
+
       this.$refs.content.style.transition = 'transform 0.5s'
       this.$refs.extend.style.transition = 'transform 0.5s'
 
-      if (this.touch.endX - this.touch.startX < 0) {
+      if (deltaX < 0) {
         // 左滑
-        if (this.touch.endX - this.touch.startX > -50 / 3) {
+        if (deltaX > -50 / 3) {
           this.$refs.content.style.transform = `translate3d(0, 0, 0)`
           this.$refs.extend.style.transform = `translate3d(50px, 0, 0)`
         } else {
@@ -86,9 +93,9 @@ export default {
           this.$refs.extend.style.transform = 'translate3d(0, 0, 0)'
         }
       }
-      if (this.touch.endX - this.touch.startX > 0) {
+      if (deltaX > 0) {
         // 右滑
-        if (this.touch.endX - this.touch.startX < 50 / 3) {
+        if (deltaX < 50 / 3) {
           this.$refs.content.style.transform = `translate3d(-50px, 0, 0)`
           this.$refs.extend.style.transform = `translate3d(0, 0, 0)`
         } else {
