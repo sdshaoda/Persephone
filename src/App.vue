@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class="app">
     <keep-alive>
       <router-view></router-view>
     </keep-alive>
@@ -11,12 +11,14 @@
 import PFooter from 'components/p-footer/p-footer'
 
 export default {
-  name: 'app',
   components: {
     PFooter
   }
 }
 </script>
 
-<style scope>
+<style lang="scss" scoped>
+.app {
+  height: 100%;
+}
 </style>
