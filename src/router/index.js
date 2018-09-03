@@ -5,6 +5,7 @@ import Asset from 'components/asset/asset'
 import Record from 'components/record/record'
 import Analyse from 'components/analyse/analyse'
 import Me from 'components/me/me'
+import AddAsset from 'components/add-asset/add-asset'
 
 Vue.use(Router)
 
@@ -16,7 +17,13 @@ export default new Router({
     },
     {
       path: '/asset',
-      component: Asset
+      component: Asset,
+      children: [
+        {
+          path: 'add',
+          component: AddAsset
+        }
+      ]
     },
     {
       path: '/record',

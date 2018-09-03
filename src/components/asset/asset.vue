@@ -72,6 +72,7 @@
       |
       <button class="add-asset" @click.stop.prevent="addAsset">添加资产</button>
     </div>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -88,7 +89,9 @@ export default {
       console.log('add record')
     },
     addAsset() {
-      console.log('add asset')
+      this.$router.push({
+        path: `/asset/add`
+      })
     },
     contentClick(item) {
       console.log('contentClick', item)
