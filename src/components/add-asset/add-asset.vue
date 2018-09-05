@@ -14,8 +14,9 @@
         <span class="tab-item">应付</span>
       </div>
 
-      <div class="container" @touchstart="touchstart" @touchmove="touchmove" @touchend="touchend">
+      <div class="container" ref="container" @touchstart="touchstart" @touchmove="touchmove" @touchend="touchend">
         <ul>
+          <li ref="firstLi"></li>
           <li v-for="item in 100" :key="item">{{ item }}</li>
         </ul>
       </div>
@@ -32,6 +33,9 @@ export default {
     }
   },
   created() {
+    this.startY = 0
+    this.translateY = 0
+    this.timeOut = 0
     // this.$router.push('/asset')
   },
   methods: {
@@ -41,11 +45,35 @@ export default {
     touchstart() {
       console.log('touchstart')
     },
-    touchmove() {
-      console.log('touchmove')
+    touchmove(e) {
+      console.log(this.$refs.firstLi.getBoundingClientRect())
+      const y = this.$refs.firstLi.getBoundingClientRect().y
+      if (y === 80) {
+        this.startY = e.touches[0].pageY
+      }
+      this.translateY = e.touches[0].pageY - this.startY + 1
+      this.$refs.addAsset.style.transform = `translate3d(0, ${this.translateY}px, 0)`
     },
     touchend() {
       console.log('touchend')
+      if (this.translateY > 250) {
+        this.$refs.addAsset.style.transition = 'transform 0.5s'
+        this.$refs.addAsset.style.transform = 'translate3d(0, 1000px, 0)'
+
+        clearTimeout(this.timeOut)
+        this.timeOut = setTimeout(() => {
+          this.$refs.addAsset.style.transition = ''
+          this.$router.push('/asset')
+        }, 500)
+      } else {
+        this.$refs.addAsset.style.transition = 'transform 0.5s'
+        this.$refs.addAsset.style.transform = ''
+
+        clearTimeout(this.timeOut)
+        this.timeOut = setTimeout(() => {
+          this.$refs.addAsset.style.transition = ''
+        }, 500)
+      }
     }
   }
 }
