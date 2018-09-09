@@ -1,9 +1,9 @@
 <template>
-  <div class="cell-swipe" @touchstart.stop="touchstart" @touchmove.stop="touchmove" @touchend.stop="touchend">
+  <div class="cell-swipe" @touchstart="touchstart" @touchmove="touchmove" @touchend="touchend">
 
     <div class="left-extends" ref="left" v-if="left">
-      <div v-for="(item, index) in left" :key="index" class="extend" style="display: inline-block;" :style="item.style" @click.stop.prevent="extendClick(item)">
-        {{ item.content }}
+      <div v-for="(item, index) in left" :key="index" class="extend" :style="item.style" @click.stop.prevent="extendClick(item)">
+        <div>{{ item.content }}</div>
       </div>
     </div>
 
@@ -107,7 +107,11 @@ export default {
         this.left && (this.$refs.left.style.transition = '')
         this.right && (this.$refs.right.style.transition = '')
 
-        callback && callback()
+        if (callback && !(callback instanceof Event)) {
+          callback()
+        }
+
+        window.removeEventListener('touchstart', this.showContent)
       }, 500)
     },
     showLeft() {
@@ -131,6 +135,8 @@ export default {
         this.$refs.content.style.transition = ''
         this.left && (this.$refs.left.style.transition = '')
         this.right && (this.$refs.right.style.transition = '')
+
+        window.addEventListener('touchstart', this.showContent)
       }, 500)
     },
     showRight() {
@@ -154,6 +160,8 @@ export default {
         this.$refs.content.style.transition = ''
         this.left && (this.$refs.left.style.transition = '')
         this.right && (this.$refs.right.style.transition = '')
+
+        window.addEventListener('touchstart', this.showContent)
       }, 500)
     },
     touchstart(e) {
