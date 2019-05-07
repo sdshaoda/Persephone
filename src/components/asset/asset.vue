@@ -1,7 +1,23 @@
 <template>
   <div class="asset">
     <div class="overview">
-      <mt-swipe :auto="0">
+      <div class="mt-swipe-item">
+        <div class="main">
+          <span class="label">本月支出</span>
+          <span class="amount">217.28</span>
+        </div>
+        <div class="sub">
+          <div class="left">
+            <span class="label">本月收入</span>
+            <span class="amount">9847.00</span>
+          </div>
+          <div class="right">
+            <span class="label">本月收入</span>
+            <span class="amount">9847.00</span>
+          </div>
+        </div>
+      </div>
+      <!-- <mt-swipe :auto="0">
         <mt-swipe-item>
           <div class="main">
             <span class="label">本月支出</span>
@@ -34,13 +50,22 @@
             </div>
           </div>
         </mt-swipe-item>
-      </mt-swipe>
+      </mt-swipe>-->
     </div>
 
     <div class="asset-overview">
       <div class="title">资产账户</div>
 
-      <cell-swipe v-for="item in 3" :key="item" class="asset-item" icon="yiban" left-main="支付宝" right-main="5954.80" @contentClick="contentClick(item)" @extendClick="extendClick" :right="[{
+      <cell-swipe
+        v-for="item in 3"
+        :key="item"
+        class="asset-item"
+        icon="yiban"
+        left-main="支付宝"
+        right-main="5954.80"
+        @contentClick="contentClick(item)"
+        @extendClick="extendClick"
+        :right="[{
         content: '编辑',
         style: {background: '#8c8c8c', color: 'white', width: '50px'},
         handle: (item, index) => {num.splice(index, 1)}
@@ -48,21 +73,33 @@
         content: '删除',
         style: {background: '#f5222d', color: 'white', width: '50px'},
         handle: (item, index) => {num.splice(index, 1)}
-      }]"></cell-swipe>
-
+      }]"
+      ></cell-swipe>
     </div>
 
     <div class="record-overview">
-      <div class="title">近3日新增账单
+      <div class="title">
+        近3日新增账单
         <span>0笔</span>
       </div>
 
-      <cell-swipe v-for="item in 10" :key="item" icon="yiban" left-main="早午晚餐" left-sub="2018-8-30 00:06:49" right-main="12.00" :right-main-style="{color: 'green'}" right-sub="招商银行信用卡" @contentClick="contentClick(item)" @extendClick="extendClick" :right="[{
+      <cell-swipe
+        v-for="item in 10"
+        :key="item"
+        icon="yiban"
+        left-main="早午晚餐"
+        left-sub="2018-8-30 00:06:49"
+        right-main="12.00"
+        :right-main-style="{color: 'green'}"
+        right-sub="招商银行信用卡"
+        @contentClick="contentClick(item)"
+        @extendClick="extendClick"
+        :right="[{
         content: '删除',
         style: {background: '#f5222d', color: 'white', width: '50px'},
         handle: (item, index) => {num.splice(index, 1)}
-      }]"></cell-swipe>
-
+      }]"
+      ></cell-swipe>
     </div>
 
     <div class="add-wrapper">
