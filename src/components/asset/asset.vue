@@ -3,56 +3,40 @@
     <scroll class="asset-content">
       <div>
         <div class="overview">
-          <div class="mt-swipe-item">
-            <div class="main">
-              <span class="label">本月支出</span>
-              <span class="amount">217.28</span>
-            </div>
-            <div class="sub">
-              <div class="left">
-                <span class="label">本月收入</span>
-                <span class="amount">9847.00</span>
+          <slider :loop="false" :autoPlay="false">
+            <div class="slider-item">
+              <div class="main">
+                <span class="label">本月支出</span>
+                <span class="amount">217.28</span>
               </div>
-              <div class="right">
-                <span class="label">本月收入</span>
-                <span class="amount">9847.00</span>
+              <div class="sub">
+                <div class="left">
+                  <span class="label">本月收入</span>
+                  <span class="amount">9847.00</span>
+                </div>
+                <div class="right">
+                  <span class="label">本月收入</span>
+                  <span class="amount">9847.00</span>
+                </div>
               </div>
             </div>
-          </div>
-          <!-- <mt-swipe :auto="0">
-        <mt-swipe-item>
-          <div class="main">
-            <span class="label">本月支出</span>
-            <span class="amount">217.28</span>
-          </div>
-          <div class="sub">
-            <div class="left">
-              <span class="label">本月收入</span>
-              <span class="amount">9847.00</span>
+            <div class="slider-item">
+              <div class="main">
+                <span class="label">净资产</span>
+                <span class="amount">646523.28</span>
+              </div>
+              <div class="sub">
+                <div class="left">
+                  <span class="label">总资产</span>
+                  <span class="amount">9847.00</span>
+                </div>
+                <div class="right">
+                  <span class="label">总负债</span>
+                  <span class="amount">9847.00</span>
+                </div>
+              </div>
             </div>
-            <div class="right">
-              <span class="label">本月收入</span>
-              <span class="amount">9847.00</span>
-            </div>
-          </div>
-        </mt-swipe-item>
-        <mt-swipe-item>
-          <div class="main">
-            <span class="label">净资产</span>
-            <span class="amount">646523.28</span>
-          </div>
-          <div class="sub">
-            <div class="left">
-              <span class="label">总资产</span>
-              <span class="amount">9847.00</span>
-            </div>
-            <div class="right">
-              <span class="label">总负债</span>
-              <span class="amount">9847.00</span>
-            </div>
-          </div>
-        </mt-swipe-item>
-          </mt-swipe>-->
+          </slider>
         </div>
 
         <div class="asset-overview">
@@ -120,6 +104,7 @@
 <script>
 import CellSwipe from 'base/cell-swipe/cell-swipe'
 import Scroll from 'base/scroll/scroll'
+import Slider from 'base/slider/slider'
 
 export default {
   data() {
@@ -146,6 +131,7 @@ export default {
   components: {
     CellSwipe,
     Scroll,
+    Slider,
   }
 }
 </script>
@@ -165,26 +151,27 @@ export default {
       width: 100%;
       height: 200px;
       background: #333;
-      .mint-swipe-item {
-        padding: 0 20px;
+      .slider-item {
+        padding: 0 30px;
+        display: flex;
+        flex-direction: column;
         .main {
-          height: 140px;
-          padding-top: 70px;
+          height: 120px;
+          padding-top: 30px;
           display: flex;
           flex-direction: column;
-          justify-content: space-around;
+          justify-content: center;
+          align-items: flex-start;
           .amount {
             font-size: 30px;
           }
         }
         .sub {
-          height: 50px;
+          height: 80px;
+          widows: 100%;
           display: flex;
           justify-content: space-between;
           align-items: center;
-          .right {
-            padding-right: 20px;
-          }
         }
         .label {
           color: #ccc;
