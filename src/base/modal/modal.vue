@@ -3,14 +3,18 @@
     <div class="modal-wrapper" ref="modalWrapper" @touchstart="touchstart" @touchmove="touchmove" @touchend="touchend">
       <header>
         <span class="close" @click="close">X</span>
-        <div v-show="header">{{ header }}</div>
+        <div class="header" v-show="header">{{ header }}</div>
       </header>
-      <slot></slot>
+      <div class="content" ref="content">
+        <slot></slot>
+      </div>
     </div>
   </transition>
 </template>
 
 <script>
+const HEADER_HEIGHT = 32
+
 export default {
   props: {
     header: {
@@ -21,42 +25,40 @@ export default {
     return {}
   },
   created() {
-    this.startY = 0
-    this.translateY = 0
+    this.touch = {}
     this.timeOut = 0
   },
   methods: {
     close() {
       this.$router.go(-1)
     },
-    touchstart() {
+    touchstart(e) {
+      this.touch.startY = e.touches[0].pageY
     },
     touchmove(e) {
-      const y = this.$refs.firstLi.getBoundingClientRect().y
-      if (y === 80) {
-        this.startY = e.touches[0].pageY
+      if (this.$refs.content.offsetTop <= HEADER_HEIGHT) {
+        this.touch.deltaY = e.touches[0].pageY - this.touch.startY
+        this.$refs.modalWrapper.style.transform = `translate3d(0, ${this.touch.deltaY}px, 0)`
       }
-      this.translateY = e.touches[0].pageY - this.startY + 1
-      this.$refs.modalWrapper.style.transform = `translate3d(0, ${this.translateY}px, 0)`
     },
     touchend() {
-      if (this.translateY > 250) {
-        this.$refs.modalWrapper.style.transition = 'transform 0.5s'
-        this.$refs.modalWrapper.style.transform = 'translate3d(0, 1000px, 0)'
+      if (this.touch.deltaY > 0.15 * document.documentElement.clientHeight) {
+        this.$refs.modalWrapper.style.transition = 'transform 0.3s'
+        this.$refs.modalWrapper.style.transform = 'translate3d(0, 100%, 0)'
 
         clearTimeout(this.timeOut)
         this.timeOut = setTimeout(() => {
           this.$refs.modalWrapper.style.transition = ''
           this.$router.go(-1)
-        }, 500)
+        }, 300)
       } else {
-        this.$refs.modalWrapper.style.transition = 'transform 0.5s'
+        this.$refs.modalWrapper.style.transition = 'transform 0.3s'
         this.$refs.modalWrapper.style.transform = ''
 
         clearTimeout(this.timeOut)
         this.timeOut = setTimeout(() => {
           this.$refs.modalWrapper.style.transition = ''
-        }, 500)
+        }, 300)
       }
     }
   }
@@ -65,14 +67,20 @@ export default {
 
 <style lang="scss" scoped>
 .modal-wrapper {
+  width: 100%;
+  height: 100%;
   position: fixed;
-}
-&.modal-enter-active,
-&.modal-leave-active {
-  transition: all 0.3s;
-}
-&.modal-enter,
-&.modal-leave-to {
-  transform: translate3d(0, 100%, 0);
+  top: 0;
+  left: 0;
+  background: white;
+  z-index: 1;
+  &.modal-enter-active,
+  &.modal-leave-active {
+    transition: all 0.3s;
+  }
+  &.modal-enter,
+  &.modal-leave-to {
+    transform: translate3d(0, 100%, 0);
+  }
 }
 </style>
