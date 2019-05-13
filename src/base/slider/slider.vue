@@ -88,6 +88,7 @@ export default {
         snap: {
           loop: this.loop,
           threshold: 0.3,
+          speed: 400,
         },
       })
 
